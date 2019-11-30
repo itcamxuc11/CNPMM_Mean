@@ -11,10 +11,11 @@ import { LoginComponent } from './login/login.component';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginService } from './_service/login.service';
+import { ClassroomComponent } from './classroom/classroom.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
-    headerName: 'x-auth-token',
+    headerName: 'x-access-token',
     noTokenScheme: true,
     noJwtError: true,
     globalHeaders: [{'Accept': 'application/json'}],
@@ -41,6 +42,7 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     LoginComponent,
+    ClassroomComponent,
   ],
   imports: [
     BrowserModule,

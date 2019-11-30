@@ -28,7 +28,6 @@ UserSchema.statics.upsertFbUser = function (accessToken, refreshToken, profile, 
     return this.findOne({
         'username': profile.emails[0].value
     }, function (err, user) {
-        // no user was found, lets create a new one
         if (!user) {
             var newUser = new that({
                 name: profile.displayName,

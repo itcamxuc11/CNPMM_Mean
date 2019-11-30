@@ -1,9 +1,10 @@
 var User = require('../models/user');
+var Classroom = require('../models/class');
 var jwt = require('jsonwebtoken');
 var config = require('../config/auth');
 //const cookieParser = require('cookie-parser');
 
-var superSecret = config.secret;
+var superSecret = config["supper-seceret"];
 
 module.exports = function (app, express) {
 
@@ -51,12 +52,11 @@ module.exports = function (app, express) {
         });
     });
 
+    /*
     apiRouter.use(function (req, res, next) {
         console.log('Somebody just came to our app!');
-        var token =  req.cookies.access_token|| req.body.token || req.query.token || req.headers['x-access-token'];
-
+        var token =  req.body.token || req.query.token || req.headers['x-access-token'];
         if (token) {
-
             jwt.verify(token, superSecret, function (err, decoded) {
                 if (err)
                     return res.json({ success: false, message: 'Failed to authenticate token.' });
@@ -72,21 +72,18 @@ module.exports = function (app, express) {
         }
         next(); 
     });
-    
+    */
     apiRouter.get('/', function (req, res) {
         res.json({ message: 'hooray! welcome to our api!' });
     });
 
     // on routes that end in /users
-    // ----------------------------------------------------
     apiRouter.route('/users')
-        // create a user (accessed at POST http://localhost:8080/users)
         .post(function (req, res) {
-            var user = new User();      // create a new instance of the User model
-            user.name = req.body.name;  // set the users name (comes from the request)
-            user.username = req.body.username;  // set the users username (comes from the request)
-            user.password = req.body.password;  // set the users password (comes from the request)
-
+            var user = new User();      
+            user.name = req.body.name;  
+            user.username = req.body.username;  
+            user.password = req.body.password;  
             user.save(function (err) {
                 if (err) {
                     // duplicate entry
@@ -95,40 +92,28 @@ module.exports = function (app, express) {
                     else
                         return res.send(err);
                 }
-
-                // return a message
                 res.json({ message: 'User created!' });
             });
 
         })
 
-        // get all the users (accessed at GET http://localhost:8080/api/users)
         .get(function (req, res) {
             User.find(function (err, users) {
                 if (err) res.send(err);
-                // return the users
                 res.json(users);
             });
         });
 
-    // on routes that end in /users/:user_id
-    // ----------------------------------------------------
-
     apiRouter.route('/users/:user_id')
-        // get the user with that id
         .get(function (req, res) {
             User.findById(req.params.user_id, function (err, user) {
                 if (err) res.send(err);
-
-                // return that user
                 res.json(user);
             });
         })
-        // update the user with this id
         .put(function (req, res) {
             User.findById(req.params.user_id, function (err, user) {
                 if (err) res.send(err);
-                // set the new user information if it exists in the request
                 if (req.body.name) user.name = req.body.name;
                 if (req.body.username) user.username = req.body.username;
                 if (req.body.password) user.password = req.body.password;
@@ -150,5 +135,55 @@ module.exports = function (app, express) {
                 res.json({ message: 'Successfully deleted' });
             });
         });
+
+
+
+    //Classroom
+    apiRouter.route('/classroom')
+    .post(function (req, res) {
+        var classroom = new Classroom();      
+        classroom.name = req.body.name;  
+        classroom.startdate = req.body.startdate;
+        classroom.enddate = req.body.enddate;
+        classroom.save(function (err) {
+            if (err) {
+                return res.send(err);
+            }
+            res.json({ message: 'Classroom created!' });
+        });
+    })
+    .get(function (req, res) {
+        Classroom.find(function (err, classrooms) {
+            if (err) res.send(err);
+            res.json(classrooms);
+        });
+    });
+
+apiRouter.route('/classroom/:class_id')
+    .get(function (req, res) {
+        Classroom.findById(req.params.class_id, function (err, classroom) {
+            if (err) res.send(err);
+            res.json(classroom);
+        });
+    })
+    .put(function (req, res) {
+        Classroom.findById(req.params.class_id, function (err, classroom) {
+            if (err) return res.send(err);
+            if (req.body.name) classroom.name = req.body.name;
+            if (req.body.enddate) classroom.enddate = req.body.enddate;
+            classroom.save(function (err) {
+                if (err) res.send(err);
+                res.json({ message: 'Class updated!' });
+            });
+        });
+    })
+    .delete(function (req, res) {
+        Classroom.remove({
+            _id: req.params.class_id
+        }, function (err, classroom) {
+            if (err) res.send(err);
+            res.json({ message: 'Successfully deleted' });
+        });
+    });
     return apiRouter;
 };
