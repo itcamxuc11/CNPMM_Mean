@@ -3,6 +3,7 @@ import 'rxjs/add/operator/toPromise';
 import { AuthHttp } from 'angular2-jwt';
 import { AuthService } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { Router } from '@angular/router';
 
 declare const FB: any;
 declare const gapi: any;
@@ -12,7 +13,7 @@ declare const gapi: any;
 })
 
 export class LoginService {
-  constructor(private http: AuthHttp, private authService: AuthService) {
+  constructor(private router: Router, private http: AuthHttp, private authService: AuthService) {
   }
 
 
@@ -23,12 +24,15 @@ export class LoginService {
           return this.http.post(`http://localhost:8080/auth/google`, { access_token: socialUser.authToken })
             .toPromise()
             .then(response => {
-              var token = response.headers.get('x-auth-token');
-              if (token) {
-                localStorage.setItem('id_token', token);
-                console.log(token);
+              if (response.status == 200) {
+                var user = response.json();
+                localStorage.setItem('name', user.name);
+                localStorage.setItem('id', user.id);
+                localStorage.setItem('id_token', user.token);
+                localStorage.setItem('role', user.role);
+                if (user.role == 1) this.router.navigateByUrl('/profile');
+                else this.router.navigateByUrl('/admin/classroom');
               }
-              resolve(response.json());
             })
             .catch(() => reject());
 
@@ -46,12 +50,15 @@ export class LoginService {
           return this.http.post(`http://localhost:8080/auth/facebook`, { access_token: socialUser.authToken })
             .toPromise()
             .then(response => {
-              var token = response.headers.get('x-auth-token');
-              if (token) {
-                localStorage.setItem('id_token', token);
-                console.log(token);
+              if (response.status == 200) {
+                var user = response.json();
+                localStorage.setItem('name', user.name);
+                localStorage.setItem('id', user.id);
+                localStorage.setItem('id_token', user.token);
+                localStorage.setItem('role', user.role);
+                if (user.role == 1) this.router.navigateByUrl('/profile');
+                else this.router.navigateByUrl('/admin/classroom');
               }
-              resolve(response.json());
             })
             .catch(() => reject());
         } else {
@@ -63,6 +70,7 @@ export class LoginService {
 
   logout() {
     localStorage.removeItem('id_token');
+    this.router.navigateByUrl('/login');
   }
 
   isLoggedIn() {

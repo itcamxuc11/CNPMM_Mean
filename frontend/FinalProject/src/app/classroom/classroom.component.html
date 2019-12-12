@@ -9,7 +9,7 @@
                     <span>Admin</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="dropdown-item"><a href="#"><i class="icon-switch2"></i> Đăng xuất</a></li>
+                    <li (click) ="logOut()" class="dropdown-item"><a><i class="icon-switch2"></i> Đăng xuất</a></li>
                 </ul>
             </span>
         </nav>
@@ -35,10 +35,9 @@
                     <div class="sidebar-category">
                         <nav class="category-content p-0">
                             <ul class="navigation">
-                                <li data-toggle="collapse" data-target="#question" class="nav-item">Câu hỏi</li>
-                                <li class="nav-item">Lớp học</li>
-                                <li class="nav-item">Học sinh</li>
-                                <li class="nav-item">Đề thi</li>
+                                <li class="nav-item"><a [routerLink]="['/admin/classroom']">Lớp học</a></li>
+                                <li class="nav-item"><a [routerLink]="['/admin/student']">Học sinh</a></li>
+                                <li class="nav-item"><a [routerLink]="['/admin/exam']">Đề thi</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -48,13 +47,13 @@
                 <div class="page-header page-header-default">
                     <div class="page-header-content">
                         <div class="page-title">
-                            <h3 class="media-heading">Danh sách học sinh</h3>
+                            <h3 class="media-heading">Quản lý hớp học</h3>
                         </div>
                     </div>
                     <div class="breadcrumb-line">
                         <ul class="breadcrumb">
                             <li><a href="index.html">Home</a></li>
-                            <li class="active">Danh sách</li>
+                            <li class="active">Lớp học</li>
                         </ul>
                     </div>
                 </div>
@@ -62,7 +61,7 @@
                     <div class="panel panel-border-top">
                         <div class="col-12">
                             <button data-target="#add-elment" data-toggle="modal" class="btn btn-dark btn-labeled"><b><i
-                                class="fas fa-plus-square"></i></b>Thêm lớp học</button>
+                                        class="fas fa-plus-square"></i></b>Thêm lớp học</button>
                         </div>
                     </div>
                     <div class="table-reponsive">l
@@ -92,7 +91,7 @@
                                     <td>{{cl.name}}</td>
                                     <td>{{cl.startdate.substring(0,10)}}</td>
                                     <td>{{cl.enddate.substring(0,10)}}</td>
-                                    <td>31</td>
+                                    <td>{{cl.students.length}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -100,9 +99,7 @@
                 </div>
                 <div class="pagination">
                     <a href="#">&laquo;</a>
-                    <a href="#">1</a>
-                    <a href="#" class="active">2</a>
-                    <a href="#">3</a>
+                    <a href="#" class="active">1</a>
                     <a href="#">&raquo;</a>
                 </div>
                 <div id="fac" class="modal full-question-content">
@@ -122,30 +119,25 @@
                                                 class="btn btn-success">Lưu</button></div>
                                     </div>
                                     <div class="d-flex">
-                                        <div class="col">
+                                        <div class="col haft-size">
                                             <h5 class="text-primary">Học sinh đã tham gia</h5>
                                             <div class="list-members delete-student">
-                                                <div class="d-flex list-member-item">
-                                                    <p class="class-id">occo01</p>
-                                                    <p class="class-name">Sansa Stark</p>
-                                                    <div><button data-target="#accept-delete" data-toggle="modal"
-                                                            class="btn delete-item btn-danger">Xóa</button></div>
-                                                </div>
-                                                <div class="d-flex list-member-item">
-                                                    <p class="class-id">occo01</p>
-                                                    <p class="class-name">Sansa Stark</p>
+                                                <div *ngFor="let si of listInClass" class="d-flex list-member-item">
+                                                    <p class="class-name">{{si.username}}</p>
                                                     <div><button data-target="#accept-delete" data-toggle="modal"
                                                             class="btn delete-item btn-danger">Xóa</button></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col">
+                                        <div class="col haft-size">
                                             <h5 class="text-primary">Thêm học sinh</h5>
                                             <div class="list-members add-student">
-                                                <div class="d-flex list-member-item">
-                                                    <p class="class-id">Hskkk12</p>
-                                                    <p class="class-name">Duy Trần</p>
-                                                    <div><button class="btn delete-item btn-success">Thêm</button></div>
+                                                <div *ngFor="let so of listOutClass" class="d-flex list-member-item">
+                                                    <p class="class-name">{{so.username}}</p>
+                                                    <div>
+                                                        <button (click)="addStudentToClass(detailClass._id,so._id)"
+                                                            class="btn btn-success">Thêm</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,40 +150,42 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="modal fade" id="add-elment">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Thên lóp học</h3>
-                                    </div>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Thên lóp học</h3>
                                 </div>
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <div class="tabbable tab-content-bordered">
-                                            <div class="tab-content">
-                                                <div class="tab-panel has-padding active">
-                                                    <div class="form-group">
-                                                        <label class="control-label">Tiêu lớp học</label>
-                                                        <input #addNameEl class="form-control" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">Ngày hết hạn</label>
-                                                        <input #addEnddateEl type="date" class="form-control" />
-                                                    </div>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="tabbable tab-content-bordered">
+                                        <div class="tab-content">
+                                            <div class="tab-panel has-padding active">
+                                                <div class="form-group">
+                                                    <label class="control-label">Tiêu lớp học</label>
+                                                    <input #addNameEl class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Ngày hết hạn</label>
+                                                    <input #addEnddateEl type="date" class="form-control" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button (click)="addClassroom(addNameEl, addEnddateEl)" class="btn btn-primary">Lưu</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button (click)="addClassroom(addNameEl, addEnddateEl)"
+                                    class="btn btn-primary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,118 @@
+<header id="header">
+    <nav id="navbar-user" class="navbar custom-navbar navbar-expand-sm navbar-dark fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="logo">
+                        <img class="img-fluid" src="../../assets/img/logo.png">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex flex-row-reverse">
+                        <div class="navbar-item">
+                            <div class="dropdown">
+                                <div data-toggle="dropdown" class="d-inline-block">
+                                    <span class="size-18 d-none d-md-inline">User</span>
+                                    <span class="size-18 dropdown-toggle"></span>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li (click) ="logOut()"  class="dropdown-item">Đăng xuất</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="navbar-item">
+                            <div class="navbar-image user-avatar">
+                                <a href=""><img class="rounded-circle" src="../../assets/img/user-avt.png"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<section style="padding-top: 100px;" id="body-block" class="bg-whitesmoke">
+    <div class="container">
+        <div class="page-content d-flex">
+            <div *ngIf=(content) class="test-helper d-none d-lg-block">
+                <div id="helper-body" class="bg-white">
+                    <div class="time-count">
+                        <h2 class="text-primary"><strong>Còn lại</strong></h2>
+                        <h3 class="text-danger">
+                            <strong>
+                                <span id="minute">{{times.minute}}</span>
+                                <span>: </span>
+                                <span id="second">{{times.second}}</span>
+                            </strong>
+                        </h3>
+                    </div>
+                    <div class="questions-complete pt-5 pb-5">
+                        <h2 class="text-primary"><strong>Câu hỏi</strong></h2>
+                        <button *ngFor="let qs of content.exam.questionList; let i =index" type="button" id="{{qs._id}}"
+                            class="m-1 btn btn-outline-primary">{{i+1}}</button>
+                    </div>
+                    <div class="test-name pl-2 pr-2">
+                        <h3 class="text-primary">{{content.title}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="content && !score" class="test-content">
+                <ul *ngFor="let qt of content.exam.questionList; let i =index" class="question">
+                    <li>
+                        <div class="frage">
+                            <div class="row">
+                                <div class="col-2 d-none d-md-block">
+                                    <div class="number bg-dark"><span>{{i+1}}</span></div>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="question-content">
+                                        <p>{{qt.content}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="answorten">
+                            <div class="answer-content">
+                                <input (change)="radioChange(qt._id)" value="A" class="choice" type="radio"
+                                    name="{{qt._id}}">
+                                <span>{{qt.answer[0]}}</span>
+                            </div>
+                            <div class="answer-content">
+                                <input (change)="radioChange(qt._id)" value="B" class="choice" type="radio"
+                                    name="{{qt._id}}">
+                                <span>{{qt.answer[1]}}</span>
+                            </div>
+                            <div class="answer-content">
+                                <input (change)="radioChange(qt._id)" value="C" class="choice" type="radio"
+                                    name="{{qt._id}}">
+                                <span>{{qt.answer[2]}}</span>
+                            </div>
+                            <div class="answer-content">
+                                <input (change)="radioChange(qt._id)" value="D" class="choice" type="radio"
+                                    name="{{qt._id}}">
+                                <span>{{qt.answer[3]}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button (click)="onSubmit()" class="btn mt-2 btn-primary">Nội
+                    bài</button>
+            </div>
+            <section *ngIf="score" id="body-block" class="bg-whitesmoke test-content pb-5">
+                <div class="container" style="min-height: 100vh">
+                    <div class="bg-white p-4">
+                        <h1 class="text-info mb-2">Điểm của bạn: <span>{{score}}</span></h1>
+                        <h1 class="text-info mb-3">
+                            Thời gian làm bài:
+                            <span>{{completed.minute}}</span><span> phút </span>
+                            <span>{{completed.second}}</span><span> giây </span>
+                        </h1>
+                        <div>
+                            <a  [routerLink]="['/profile']" class=" btn btn-primary text-white">Về trang chủ</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>

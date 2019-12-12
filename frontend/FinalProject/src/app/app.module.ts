@@ -12,6 +12,12 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginService } from './_service/login.service';
 import { ClassroomComponent } from './classroom/classroom.component';
+import { ExamComponent } from './exam/exam.component';
+import { DetailexamComponent } from './exam/detailexam/detailexam.component';
+import { UserService } from './_service/user.service';
+import { UserComponent } from './user/user.component';
+import { ProfileComponent } from './profile/profile.component';
+import { TestingComponent } from './testing/testing.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -43,6 +49,11 @@ export function provideConfig() {
     AppComponent,
     LoginComponent,
     ClassroomComponent,
+    ExamComponent,
+    DetailexamComponent,
+    UserComponent,
+    ProfileComponent,
+    TestingComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +63,7 @@ export function provideConfig() {
     AppRoutingModule,
   ],
   providers: [
+    UserService,
     LoginService,
     {
       provide: AuthHttp,

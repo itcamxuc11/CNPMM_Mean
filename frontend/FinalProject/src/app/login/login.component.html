@@ -1,108 +1,110 @@
 <div class="root">
-  <section id="header">
-      <nav id="navbar-home" class="navbar custom-navbar navbar-expand-sm navbar-dark fixed-top">
-          <div class="container">
-              <div class="row">
-                  <div class="col">
-                      <div class="logo">
-                          <img class="img-fluid" src="../../assets/img/logo.png">
-                      </div>
-                  </div>
-                  <div class="col">
-                      <div class="d-flex flex-row-reverse">
-                          <div class="dropdown d-block d-md-none" data-toggle="dropdown">
-                              <div class="custom-dropdown">
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                                  <span class="icon-bar"></span>
-                              </div>
-                              <ul class="dropdown-menu">
-                                  <li class="dropdown-item">Home</li>
-                                  <li class="dropdown-item">Giới thiệu</li>
-                                  <li class="dropdown-item">Liên hệ</li>
-                                  <li class="dropdown-item">Đăng nhập</li>
-                              </ul>
-                          </div>
-                          <button id="login" class="d-none d-md-block navbar-item">
-                              Đăng nhập
-                          </button>
-                          <div class="d-none d-md-block navbar-item">
-                              <span>Liên hệ</span>
-                          </div>
-                          <div class="d-none d-md-block navbar-item">
-                              <span>Giới thiệu</span>
-                          </div>
-                          <div class="d-none d-md-block navbar-item">
-                              <span>Home</span>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </nav>
-      <div id="header-main">
-          <div class="banner">
-              <div class="card card-signin my-5">
-                  <div class="card-body">
-                      <h5 class="card-title text-center">Đăng Nhập</h5>
-                      <form class="form-signin">
-                          <div class="form-label-group">
-                              <input type="text" id="inputEmail" class="form-control" placeholder="Tên tài khoản">
-                          </div>
-                          <div class="form-label-group">
-                              <input type="password" id="inputPassword" class="form-control" placeholder="Mật Khảu">
-                          </div>
-                          <hr class="my-4">
-                          <button (click)="fbLogin()" class="btn btn-lg btn-primary btn-block"><span
-                                  class="fa fa-facebook"></span> Facebook</button>
-                          <button (click)="googleLogin()" class="btn btn-danger btn-lg btn-block"><span
-                                  class="fa fa-google-plus"></span> Google</button>
-                      </form>
-                  </div>
-              </div>
-          </div>
-          <div class="subjects-list d-none d-lg-flex">
-              <div>
-                  <ul>
-                      <li class="subject">
-                          <div>
-                              <span class="subject-icon chemistry"></span>
-                              <span>Hóa Học</span>
-                          </div>
-                      </li>
-                      <li class="subject">
-                          <div>
-                              <span class="physical subject-icon"></span>
-                              <span>Vật Lí</span>
-                          </div>
-                      </li>
-                      <li class="subject">
-                          <div>
-                              <span class="subject-icon math"></span>
-                              <span>Toán Học</span>
-                          </div>
-                      </li>
-                      <li class="subject">
-                          <div>
-                              <span class="subject-icon biology"></span>
-                              <span>Sinh Học</span>
-                          </div>
-                      </li>
-                      <li class="subject">
-                          <div>
-                              <span class="subject-icon it"></span>
-                              <span>Tin Học</span>
-                          </div>
-                      </li>
-                      <li class="subject">
-                          <div>
-                              <span class="subject-icon english"></span>
-                              <span>Tiếng Anh</span>
-                          </div>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-  </section>
+    <section id="header">
+        <nav id="navbar-home" class="navbar custom-navbar navbar-expand-sm navbar-dark fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="logo">
+                            <img class="img-fluid" src="../../assets/img/logo.png">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="d-flex flex-row-reverse">
+                            <div class="dropdown d-block d-md-none" data-toggle="dropdown">
+                                <div class="custom-dropdown">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </div>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item">Home</li>
+                                    <li class="dropdown-item">Giới thiệu</li>
+                                    <li class="dropdown-item">Liên hệ</li>
+                                    <li class="dropdown-item">Đăng nhập</li>
+                                </ul>
+                            </div>
+                            <button id="login" class="d-none d-md-block navbar-item">
+                                Đăng nhập
+                            </button>
+                            <div class="d-none d-md-block navbar-item">
+                                <span>Liên hệ</span>
+                            </div>
+                            <div class="d-none d-md-block navbar-item">
+                                <span>Giới thiệu</span>
+                            </div>
+                            <div class="d-none d-md-block navbar-item">
+                                <span>Home</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="header-main">
+            <div class="banner">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Đăng Nhập</h5>
+                        <form class="form-signin">
+                            <div class="form-label-group">
+                                <input #usernameEl type="text" class="form-control" placeholder="Tên tài khoản">
+                            </div>
+                            <div class="form-label-group">
+                                <input #passwordEl type="password" class="form-control" placeholder="Mật Khảu">
+                            </div>
+                            <button (click)="login(usernameEl,passwordEl)" class="btn btn-lg btn-success btn-block">Đăng nhập</button>
+                            <hr class="my-4">
+                            <button (click)="fbLogin()" class="btn btn-lg btn-primary btn-block"><i
+                                    class="fab fa-facebook-f"></i>
+                                Facebook</button>
+                            <button (click)="googleLogin()" class="btn btn-danger btn-lg btn-block"><i
+                                    class="fab fa-google"></i> Google</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="subjects-list d-none d-lg-flex">
+                <div>
+                    <ul>
+                        <li class="subject">
+                            <div>
+                                <span class="subject-icon chemistry"></span>
+                                <span>Hóa Học</span>
+                            </div>
+                        </li>
+                        <li class="subject">
+                            <div>
+                                <span class="physical subject-icon"></span>
+                                <span>Vật Lí</span>
+                            </div>
+                        </li>
+                        <li class="subject">
+                            <div>
+                                <span class="subject-icon math"></span>
+                                <span>Toán Học</span>
+                            </div>
+                        </li>
+                        <li class="subject">
+                            <div>
+                                <span class="subject-icon biology"></span>
+                                <span>Sinh Học</span>
+                            </div>
+                        </li>
+                        <li class="subject">
+                            <div>
+                                <span class="subject-icon it"></span>
+                                <span>Tin Học</span>
+                            </div>
+                        </li>
+                        <li class="subject">
+                            <div>
+                                <span class="subject-icon english"></span>
+                                <span>Tiếng Anh</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

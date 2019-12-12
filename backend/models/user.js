@@ -6,7 +6,10 @@ var bcrypt = require('bcrypt-nodejs');
 var UserSchema = new Schema({
     name: String,
     username: { type: String, require: true, index: { unique: true } },
-    password: { type: String, select: false }
+    password: { type: String, select: false },
+    role: Number,
+    classList: [{type:Schema.Types.ObjectId, ref: 'Classroom'}],
+    score: [Schema.Types.ObjectId]
 })
 
 UserSchema.pre('save', function (next) {
@@ -31,6 +34,7 @@ UserSchema.statics.upsertFbUser = function (accessToken, refreshToken, profile, 
         if (!user) {
             var newUser = new that({
                 name: profile.displayName,
+                role: 1,
                 username: profile.emails[0].value,
             });
             newUser.save(function (error, savedUser) {

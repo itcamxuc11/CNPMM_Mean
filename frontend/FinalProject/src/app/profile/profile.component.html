@@ -1,0 +1,213 @@
+<body>
+    <div class="root">
+        <header id="header">
+            <nav id="navbar-user" class="navbar custom-navbar navbar-expand-sm navbar-dark fixed-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="logo">
+                                <img class="img-fluid" src="../../assets/img/logo.png">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex flex-row-reverse">
+                                <div class="navbar-item">
+                                    <div class="dropdown">
+                                        <div data-toggle="dropdown" class="d-inline-block">
+                                            <span class="size-18 d-none d-md-inline">User</span>
+                                            <span class="size-18 dropdown-toggle"></span>
+                                        </div>
+                                        <ul class="dropdown-menu">
+                                            <li (click) ="logOut()" class="dropdown-item">Đăng xuất</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="navbar-item">
+                                    <div class="navbar-image user-avatar">
+                                        <a href=""><img class="rounded-circle" src="../../assets/img/user-avt.png"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <section id="body-block" class="bg-whitesmoke pb-5">
+            <div class="container anti-fixed">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="user-profile">
+                            <div class="d-flex flex-column flex-wrap align-items-center">
+                                <div class="user-avatar d-block">
+                                    <img class="rounded-circle" src="../../assets/img/user-avt.png">
+                                </div>
+                                <p id="user-name" class="size-18 m-0 mt-3">Malcolm Graves</p>
+                                <p id="user-position" class="sub-info">(Học sinh)</p>
+                                <div class="user-info p-3">
+                                    <p class="w-100">
+                                        <i class="fas fa-birthday-cake icon-info"></i>
+                                        <span>Ngày sinh: </span>
+                                        <span id="date-of-birth" class="detail-info">12-2-2002</span>
+                                        <i class="fas fa-pencil-alt float-right edit"></i>
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-map-marker-alt icon-info"></i>
+                                        <span>Địa chỉ: </span>
+                                        <span id="address" class="detail-info">West North Damecia</span>
+                                    </p>
+                                    <p>
+                                        <i class="fas fa-mobile-alt icon-info"></i>
+                                        <span>Số điện thoại: </span>
+                                        <span id="phone-number" class="detail-info">+27 3342552</span>
+                                    </p>
+                                    <p>
+                                        <i class="far fa-envelope icon-info"></i>
+                                        <span>Email: </span>
+                                        <span id="email" class="detail-info">bestgraves12022002@gmail.com</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white mt-2">
+                            <h3 class="panel-heading text-primary pl-3 m-0 pt-3 text-left">Lịch của bạn</h3>
+                            <div class="calendar-wrapper">
+                                <button id="btnPrev" type="button"><i class="fas fa-backward"> Prev</i></button>
+                                <button id="btnNext" type="button">Next <i class="fas fa-forward"></i></button>
+                                <div id="divCal"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="user-class">
+                            <h3 class="panel-heading text-primary">Lớp học của bạn</h3>
+                            <div class="d-flex flex-wrap">
+                                <div *ngFor ="let cl of classrooms" class="col-12 col-md-6">
+                                    <div class="class-block d-flex">
+                                        <div class="class-icon math">
+                                            <span class="notification">1</span>
+                                        </div>
+                                        <div class="class-name">
+                                            <h4 class="class-name">{{cl.name}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white pb-2 mt-2">
+                            <h3 class="panel-heading text-primary pl-3 m-0 pt-3 text-left">Sựu kiện sắp tới</h3>
+                            <div class="event-recent mt-4">
+                                <div *ngFor="let ex of exams" class="event-block pl-3 pt-2">
+                                    <a class="size-18 event-name text-primary">{{ex.exam.title}}</a>
+                                    <p class="event-info pl-3">
+                                        <span>Lớp: </span>
+                                        <a href=""><span class="text-primary mr-3">{{ex.classname}}</span></a>
+                                        <span>Bắt đầu: </span>
+                                        <span class="text-info ml-0 mr-3">{{ex.exam.start}}</span>
+                                        <span>Kết thúc: </span>
+                                        <span class="text-danger ml-0">{{ex.exam.end}}</span><br>
+                                        <span>Thời gian làm bài: </span>
+                                        <span class="text-danger ml-0">{{ex.exam.times}} </span><span> (phút)</span>                              
+                                    </p>
+                                    <a [routerLink]="['/test', ex.exam._id]" class="text-primary pl-3"><i class="fas fa-play-circle"></i> Làm bài...</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white pb-2 mt-2">
+                            <h3 class="panel-heading text-primary pl-3 m-0 pt-3 text-left">Lịch sử làm bài</h3>
+                            <div class="event-recent mt-4">
+                                <div *ngFor="let rs of results" class="event-block pl-3 pt-2">
+                                    <a class="size-18 event-name text-primary">{{rs.relative.title}}</a>
+                                    <p class="event-info pl-3">
+                                        <span>Ngày làm bài: </span>
+                                        <a href=""><span class="text-primary mr-3">12-12-2019</span></a>
+                                        <span>Điểm: </span>
+                                        <span class="text-info ml-0 mr-3">{{rs.score}}</span>                           
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 footer_col">
+                        <div class="footer_column footer_contact">
+                            <div class="logo_container">
+                                <div class="logo"><a href="#">G4-Saturday</a></div>
+                            </div>
+                            <div class="footer_title">Đặt câu hỏi? Trợ giúp 24/7</div>
+                            <div class="footer_phone">+84 326845214</div>
+                            <div class="footer_contact_text">
+                                <p>01 Võ Văn Ngân - Thủ Đức</p>
+                                <p>TP.Hồ Chí Minh - Việt Nam</p>
+                            </div>
+                            <div class="footer_social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-google"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 offset-lg-2">
+                        <div class="footer_column">
+                            <div class="footer_title">Tìm kiếm nhanh</div>
+                            <ul class="footer_list">
+                                <li><a href="#">Toán Học</a></li>
+                                <li><a href="#">Vật Lí</a></li>
+                                <li><a href="#">Hóa Học</a></li>
+                                <li><a href="#">Sinh Học</a></li>
+                                <li><a href="#">Ngoại ngữ</a></li>
+                                <li><a href="#">Tin Học</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="footer_column">
+                            <ul class="footer_list footer_list_2">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="footer_column">
+                            <div class="footer_title">Liên hệ</div>
+                            <ul class="footer_list">
+                                <li><a href="#">Huỳnh Công Chiến</a></li>
+                                <li><a href="http://facebook.com/trankhuongduy1123">Trần Khương Duy</a></li>
+                                <li><a href="#">Chu Thị Hương Giang</a></li>
+                                <li><a href="#">Võ Đình Khởi</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+
+                        <div
+                            class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
+                            <div class="copyright_content">
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This
+                                website is made by G4-Saturday
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

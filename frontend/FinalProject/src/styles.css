@@ -11,13 +11,26 @@ ul {
     margin: 0;
     padding: 0;
 }
-
-a {
+.group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: baseline;
+  }
+  a {
+    text-decoration: none;
     cursor: pointer;
-}
-
+  }
+  
 .size-18 {
     font-size: 18px !important;
+}
+.haft-size{
+    max-width: 50% !important;
 }
 .bg-whitesmoke{
     background: #e9e9e9;
@@ -702,6 +715,12 @@ a {
  .category-content{
      padding:20px 60px 20px;
  }
+ .category-content >ul > li >a {
+     height: 100%;
+     width: 100%;
+     display: block;
+     color: white;
+ }
  .media-heading{
      font-weight: 500;
  }
@@ -767,6 +786,11 @@ a {
      content: "/\00a0";
      padding: 0 5px;
      color: #333333;
+ }
+ .text-ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
  }
  .content-wrapper{
      padding-bottom: 30px;
@@ -902,6 +926,7 @@ a {
  .modal .list-members{
      padding:20px 0 20px 10px;
      max-height: 470px;
+     overflow-x: hidden;
      overflow-y: scroll;
  }
  .modal .list-member-item{
@@ -911,17 +936,22 @@ a {
  }
  .modal .list-member-item > p{
      margin:0;
+     flex-grow: 1;
      padding:0 10px;
      font-weight: 800;
      line-height: 38px;
+     max-width: 257px;
      border-left: 1px solid #dc3545;
  }
  .modal .list-member-item > button{
+     margin-right: 3px;
      border-radius: 8px;
+     display: block;
  }
- .modal .list-member-item > *{
-     width: 34%;
- }
+ .modal .list-member-item >div{
+    min-width: 69px;
+}
+
  .modal .class-profile .expiry-date-block{
      margin-bottom: 20px;
  }
@@ -936,7 +966,10 @@ a {
      font-weight: 500;
  }
  
- 
+ .test-content{
+     flex-grow: 1;
+ }
+
  .test-content .question li{
      clear: both;
      margin-bottom: 20px;
@@ -1012,3 +1045,84 @@ a {
  .pagination a:first-child,.pagination a:last-child{
      font-size: 20px;
  }
+
+ .group:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .calendar-wrapper img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: baseline;
+  }
+  .calendar-wrapper a {
+    text-decoration: none;
+  }
+  .calendar-wrapper {
+    width: 360px;
+    max-width: 100%;
+    padding: 2em;
+    border-radius: 5px;
+    background: #fff;
+  }
+  
+  .calendar-wrapper table {
+    clear: both;
+    width: 100%;
+    border: 1px solid #dcdcff;
+    border-radius: 3px;
+    border-collapse: collapse;
+    color: #444;
+  }
+  .calendar-wrapper td {
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #dcdcff;
+    border-top: 1px solid #dcdcff;
+    width: 14.28571429%;
+  }
+  .calendar-wrapper td.not-current {
+    color: #c0c0c0;
+  }
+  .calendar-wrapper td.today {
+    font-weight: 700;
+    font-size: 1.5em;
+    background: #20a8e9;
+    color: white;
+  }
+  .calendar-wrapper thead td {
+    border: none;
+    color:white;
+    background: #20a8e9;
+    text-transform: uppercase;
+    font-size: 1.5em;
+  }
+  .calendar-wrapper #btnPrev {
+    float: left;
+    margin-bottom: 20px;
+  }
+  
+  .calendar-wrapper #btnNext {
+    float: right;
+    margin-bottom: 20px;
+  }
+  
+  #btnPrev,
+  #btnNext {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #c0c0c0;
+    cursor: pointer;
+    font-family: "Roboto Condensed", sans-serif;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  #btnPrev:hover,
+  #btnNext:hover {
+    color: #28283b;
+    font-weight: bold;
+  }

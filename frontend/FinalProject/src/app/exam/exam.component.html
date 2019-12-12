@@ -1,0 +1,134 @@
+<div id="header">
+    <div class="navbar-header">
+        <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
+            <a class="navbar-brand" href="#"><span>Thi trắc nghiệm online</span></a>
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <span class="navbar-brand dropdown" href="#">
+                <a class="dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+                    <span>Admin</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li (click)="logOut()" class="dropdown-item"><a><i class="icon-switch2"></i> Đăng xuất</a></li>
+                </ul>
+            </span>
+        </nav>
+    </div>
+</div>
+<div class="page-container">
+    <div class="page-content p-0">
+        <div class="row">
+            <div class="d-none d-lg-block sidebar  sidebar-fixed-left pr-0">
+                <div class="sidebar-content">
+                    <div class="sidebar-user">
+                        <div class="category-content">
+                            <div class="media">
+                                <div class="media-body">
+                                    <span class="media-heading">ADMIN</span>
+                                    <div class="text-size-mini text-muted">
+                                        <span class="fs-11">Việt Nam</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-category">
+                        <nav class="category-content p-0">
+                            <ul class="navigation">
+                                <li class="nav-item"><a [routerLink]="['/admin/classroom']">Lớp học</a></li>
+                                <li class="nav-item"><a [routerLink]="['/admin/student']">Học sinh</a></li>
+                                <li class="nav-item"><a [routerLink]="['/admin/exam']">Đề thi</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col content-wrapper">
+                <div class="page-header page-header-default">
+                    <div class="page-header-content">
+                        <div class="page-title">
+                            <h3 class="media-heading">Quản lí đề thi</h3>
+                        </div>
+                    </div>
+                    <div class="breadcrumb-line">
+                        <ul class="breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="active">Đề thi</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="panel panel-border-top">
+                        <div class="col-12">
+                            <button data-target="#add-elment" data-toggle="modal" class="btn btn-dark btn-labeled"><b><i
+                                        class="fas fa-plus-square"></i></b>Thêm đề thi</button>
+                        </div>
+                    </div>
+                    <div class="table-reponsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="custom-thead">
+                                <tr>
+                                    <th>Mã đề thi</th>
+                                    <th>Tên đề thi</th>
+                                    <th>Chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let ex of exams">
+                                <tr>
+                                    <td>
+                                        <div class="dropdown">
+                                            <span data-toggle="dropdown" class="dropdown-toggle">{{ex._id}}</span>
+                                            <ul class="dropdown-menu">
+                                                <li (click)="deleteExam(ex._id)" class="dropdown-item">Xóa</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>{{ex.name}}</td>
+                                    <td><a [routerLink]="['/admin/exam/detail', ex._id]">Edit</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">&raquo;</a>
+                </div>
+                <div class="modal fade" id="add-elment">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Thên đề thi</h3>
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="tabbable tab-content-bordered">
+                                        <div class="tab-content">
+                                            <div class="tab-panel has-padding active">
+                                                <label class="control-label">Chọn file</label>
+                                                <div class="custom-file">
+                                                    <input (change)="fileProgress($event)" type="file"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label text-ellipsis"
+                                                        for="customFile">{{fileName}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button (click)="onSubmit()" class="btn btn-primary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
